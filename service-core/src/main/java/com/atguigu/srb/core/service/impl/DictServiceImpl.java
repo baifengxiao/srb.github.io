@@ -6,6 +6,7 @@ import com.atguigu.srb.core.pojo.entity.Dict;
 import com.atguigu.srb.core.mapper.DictMapper;
 import com.atguigu.srb.core.pojo.entity.dto.ExcelDictDTO;
 import com.atguigu.srb.core.service.DictService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -33,7 +34,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public void importData(InputStream inputStream) {
-        EasyExcel.read(inputStream, ExcelDictDTO.class,new ExcelDictDTOListener(baseMapper)).sheet().doRead();
+        EasyExcel.read(inputStream, ExcelDictDTO.class, new ExcelDictDTOListener(baseMapper)).sheet().doRead();
         log.info("Excel导入成功");
     }
 
@@ -43,9 +44,33 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
         ArrayList<ExcelDictDTO> excelDictDTOlist = new ArrayList<>(dictList.size());
         dictList.forEach(dict -> {
             ExcelDictDTO excelDictDTO = new ExcelDictDTO();
-            BeanUtils.copyProperties(dict,excelDictDTO);
+            BeanUtils.copyProperties(dict, excelDictDTO);
             excelDictDTOlist.add(excelDictDTO);
         });
         return excelDictDTOlist;
+    }
+
+    @Override
+    public List<Dict> listByParentId(Long parentId) {
+        List<Dict> dictList = baseMapper.selectList(new QueryWrapper<Dict>().eq("parent_id", parentId));
+        dictList.forEach(dict -> {
+            //如果有子节点，则是非叶子节点
+            boolean hasChildren = this.hasChildren(dict.getId());
+            dict.setHasChildren(hasChildren);
+        });
+        return dictList;
+    }
+
+    /**
+     * 判断该节点是否有子节点
+     */
+
+    private boolean hasChildren(Long id) {
+        QueryWrapper<Dict> queryWrapper = new QueryWrapper<Dict>().eq("parent_id", id);
+        Integer count = baseMapper.selectCount(queryWrapper);
+        if (count.intValue() > 0) {
+            return true;
+        }
+        return false;
     }
 }
