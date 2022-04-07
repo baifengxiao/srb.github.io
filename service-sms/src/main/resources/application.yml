@@ -9,10 +9,10 @@ spring:
 
   #spring:
   redis:
-    host: 192.168.100.100
+    host: 192.168.44.101
     port: 6379
     database: 0
-    password: 123456 #默认为空
+#    password: 123456 #默认为空
     timeout: 3000ms #最大等待时间，超时则抛出异常，否则请求一直等待
     lettuce:
       pool:
@@ -21,11 +21,13 @@ spring:
         max-idle: 8     #最大空闲连接，默认8
         min-idle: 0     #最小空闲连接，默认0
 
-#阿里云短信
-aliyun:
+#短信配置容联云
+rly:
   sms:
-    region-id: cn-hangzhou
-    key-id: LTAI4G5Svnb2TWBMuKnNT6jY
-    key-secret: N7v6R4V3EJ1SGDZlsqtqo8QyVVMmtQ
-    template-code: SMS_96695065
-    sign-name: 谷粒
+    accountSId: 8aaf07087fe90a32017fffc1f1080590
+    accountToken: 0b5f00537eb5461692d664446fb4b21f
+    appId: 8aaf07087fe90a32017fffc1f1eb0597
+    serverIp: app.cloopen.com  #默认都是这个
+    serverPort: 8883  #默认都是这个
+
+
