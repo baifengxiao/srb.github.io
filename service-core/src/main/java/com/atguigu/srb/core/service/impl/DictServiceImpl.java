@@ -9,13 +9,18 @@ import com.atguigu.srb.core.service.DictService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.ibatis.reflection.ExceptionUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -29,8 +34,10 @@ import java.util.List;
 @Service
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements DictService {
 
-    //添加事务
+    @Resource
+    private RedisTemplate redisTemplate;
 
+    //添加事务
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public void importData(InputStream inputStream) {
@@ -52,13 +59,38 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
     @Override
     public List<Dict> listByParentId(Long parentId) {
+
+        try {
+            //首先查询redis中是否存在数据列表
+            List<Dict> dictList = (List<Dict>) redisTemplate.opsForValue().get("srb:core:dictList:" + parentId);
+            if (dictList != null) {
+                //如果存在，则从redis中返回数据列表
+                log.info("从redis中获取数据列表");
+                return dictList;
+            }
+            //如果存在则直接返回数据列表
+        } catch (Exception e) {
+            log.error("redis服务器异常：" + ExceptionUtils.getStackTrace(e));
+        }
+        //不存在，则查询数据库
+        log.info("从数据库中获取数据列表");
         List<Dict> dictList = baseMapper.selectList(new QueryWrapper<Dict>().eq("parent_id", parentId));
         dictList.forEach(dict -> {
             //如果有子节点，则是非叶子节点
             boolean hasChildren = this.hasChildren(dict.getId());
             dict.setHasChildren(hasChildren);
         });
+        try {
+            //将数据存入redis
+            log.info("数据存入redis");
+            redisTemplate.opsForValue().set("srb:core:dictList:" + parentId, dictList, 5, TimeUnit.MINUTES);
+        } catch (Exception e) {
+            log.error("redis服务器异常：" + ExceptionUtils.getStackTrace(e));
+        }
+
+        //将数据返回数据库
         return dictList;
+
     }
 
     /**

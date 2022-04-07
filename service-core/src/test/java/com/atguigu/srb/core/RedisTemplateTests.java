@@ -2,6 +2,7 @@ package com.atguigu.srb.core;
 
 import com.atguigu.srb.core.mapper.DictMapper;
 import com.atguigu.srb.core.pojo.entity.Dict;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,6 +10,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,4 +42,5 @@ public class RedisTemplateTests {
         Dict dict = (Dict)redisTemplate.opsForValue().get("dict");
         System.out.println(dict);
     }
+
 }

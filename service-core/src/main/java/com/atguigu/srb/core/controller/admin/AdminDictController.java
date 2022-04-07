@@ -8,6 +8,7 @@ import com.atguigu.common.result.ResponseEnum;
 import com.atguigu.srb.core.pojo.entity.Dict;
 import com.atguigu.srb.core.pojo.entity.dto.ExcelDictDTO;
 import com.atguigu.srb.core.service.DictService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -59,7 +62,6 @@ public class AdminDictController {
     @ApiOperation("Excel数据的导出")
     @GetMapping("/export")
     public void export(HttpServletResponse response) {
-        System.out.println("怎么不得行");
         try {
             // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
             response.setContentType("application/vnd.ms-excel");
@@ -83,5 +85,7 @@ public class AdminDictController {
         List<Dict> dictList = dictService.listByParentId(parentId);
         return R.ok().data("list", dictList);
     }
+
+
 }
 
