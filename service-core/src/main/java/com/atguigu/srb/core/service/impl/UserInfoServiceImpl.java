@@ -3,14 +3,23 @@ package com.atguigu.srb.core.service.impl;
 import com.atguigu.common.exception.Assert;
 import com.atguigu.common.result.ResponseEnum;
 import com.atguigu.common.util.MD5;
+import com.atguigu.srb.base.util.JwtUtils;
 import com.atguigu.srb.core.mapper.UserAccountMapper;
+import com.atguigu.srb.core.mapper.UserLoginRecordMapper;
 import com.atguigu.srb.core.pojo.entity.UserAccount;
 import com.atguigu.srb.core.pojo.entity.UserInfo;
 import com.atguigu.srb.core.mapper.UserInfoMapper;
+import com.atguigu.srb.core.pojo.entity.UserLoginRecord;
+import com.atguigu.srb.core.pojo.query.UserInfoQuery;
+import com.atguigu.srb.core.pojo.vo.LoginVO;
 import com.atguigu.srb.core.pojo.vo.RegisterVO;
+import com.atguigu.srb.core.pojo.vo.UserInfoVO;
 import com.atguigu.srb.core.service.UserInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,14 +38,17 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     @Resource
     private UserAccountMapper userAccountMapper;
 
+    @Resource
+    UserLoginRecordMapper userLoginRecordMapper;
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void register(RegisterVO registerVO) {
 
         QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
-        userInfoQueryWrapper.eq("mobile",registerVO.getMobile());
+        userInfoQueryWrapper.eq("mobile", registerVO.getMobile());
         Integer count = baseMapper.selectCount(userInfoQueryWrapper);
-        Assert.isTrue(count==0, ResponseEnum.MOBILE_EXIST_ERROR);
+        Assert.isTrue(count == 0, ResponseEnum.MOBILE_EXIST_ERROR);
         //插入用户信息记录：user_info
         UserInfo userInfo = new UserInfo();
         userInfo.setUserType(registerVO.getUserType());
@@ -53,4 +65,63 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userAccountMapper.insert(userAccount);
 
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public UserInfoVO login(LoginVO loginVO, String ip) {
+
+        String mobile = loginVO.getMobile();
+        String password = loginVO.getPassword();
+        Integer userType = loginVO.getUserType();
+
+        //用户是否存在
+        QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
+        userInfoQueryWrapper.eq("mobile", mobile)
+                .eq("user_type", userType);
+        UserInfo userInfo = baseMapper.selectOne(userInfoQueryWrapper);
+        Assert.notNull(userInfo, ResponseEnum.LOGIN_MOBILE_ERROR);
+        //密码是否正确
+        Assert.equals(MD5.encrypt(password), userInfo.getPassword(), ResponseEnum.LOGIN_PASSWORD_ERROR);
+        //用户是否被禁用
+        Assert.equals(userInfo.getStatus(), UserInfo.STATUS_NORMAL, ResponseEnum.LOGIN_LOKED_ERROR);
+
+
+        //记录登录日志
+        UserLoginRecord userLoginRecord = new UserLoginRecord();
+        userLoginRecord.setUserId(userInfo.getId());
+        userLoginRecord.setIp(ip);
+        userLoginRecordMapper.insert(userLoginRecord);
+
+        //生成token
+        String token = JwtUtils.createToken(userInfo.getId(), userInfo.getName());
+
+        //组装userinfovo
+        UserInfoVO userInfoVO = new UserInfoVO();
+        userInfoVO.setToken(token);
+        userInfoVO.setName(userInfo.getName());
+        userInfoVO.setNickName(userInfo.getNickName());
+        userInfoVO.setHeadImg(userInfo.getHeadImg());
+        userInfoVO.setMobile(userInfo.getMobile());
+        userInfoVO.setUserType(userType);
+
+        //返回
+        return userInfoVO;
+    }
+
+
+    @Override
+    public IPage<UserInfo> listPage(Page<UserInfo> pageParam, UserInfoQuery userInfoQuery) {
+        if (userInfoQuery == null) {
+            return baseMapper.selectPage(pageParam, null);
+        }
+        String mobile = userInfoQuery.getMobile();
+        Integer status = userInfoQuery.getStatus();
+        Integer userType = userInfoQuery.getUserType();
+        QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
+        userInfoQueryWrapper.eq(mobile!=null,"mobile", mobile)
+                .eq(status!=null,"status", status)
+                .eq(userType!=null,"user_type", userType);
+        return baseMapper.selectPage(pageParam,userInfoQueryWrapper);
+    }
+
 }
