@@ -47,31 +47,32 @@ public class UserInfoController {
         String password = registerVO.getPassword();
         String code = registerVO.getCode();
 
-        Assert.notEmpty(mobile,ResponseEnum.MOBILE_NULL_ERROR);
-        Assert.notEmpty(password,ResponseEnum.PASSWORD_NULL_ERROR);
-        Assert.notEmpty(code,ResponseEnum.CODE_NULL_ERROR);
-        Assert.isTrue(RegexValidateUtils.checkCellphone(mobile),ResponseEnum.MOBILE_ERROR);
+        Assert.notEmpty(mobile, ResponseEnum.MOBILE_NULL_ERROR);
+        Assert.notEmpty(password, ResponseEnum.PASSWORD_NULL_ERROR);
+        Assert.notEmpty(code, ResponseEnum.CODE_NULL_ERROR);
+        Assert.isTrue(RegexValidateUtils.checkCellphone(mobile), ResponseEnum.MOBILE_ERROR);
         //校验验证码
 
         //注册
         String codeGen = (String) redisTemplate.opsForValue().get("srb:sms:code:" + mobile);
-        Assert.equals(code, codeGen,ResponseEnum.CODE_ERROR);
+        Assert.equals(code, codeGen, ResponseEnum.CODE_ERROR);
         userInfoService.register(registerVO);
         return R.ok().message("注册成功");
     }
+
     @ApiOperation("会员登录")
     @PostMapping("/login")
-    public R login(@RequestBody LoginVO loginVO, HttpServletRequest request){
+    public R login(@RequestBody LoginVO loginVO, HttpServletRequest request) {
 
         String mobile = loginVO.getMobile();
         String password = loginVO.getPassword();
 
-        Assert.notEmpty(mobile,ResponseEnum.MOBILE_NULL_ERROR);
-        Assert.notEmpty(password,ResponseEnum.PASSWORD_NULL_ERROR);
+        Assert.notEmpty(mobile, ResponseEnum.MOBILE_NULL_ERROR);
+        Assert.notEmpty(password, ResponseEnum.PASSWORD_NULL_ERROR);
 
         String ip = request.getRemoteAddr();
-        UserInfoVO userInfoVO=userInfoService.login(loginVO,ip);
-        return R.ok().data("userInfo",userInfoVO);
+        UserInfoVO userInfoVO = userInfoService.login(loginVO, ip);
+        return R.ok().data("userInfo", userInfoVO);
     }
 
     @ApiOperation("校验令牌")
@@ -79,21 +80,22 @@ public class UserInfoController {
     public R checkToken(HttpServletRequest request) {
 
         String token = request.getHeader("token");
-        boolean result = JwtUtils.checkToken("token");
+        boolean result = JwtUtils.checkToken(token);
 
-        if (result){
+        if (result) {
             return R.ok();
-        }else {
+        } else {
             return R.setResult(ResponseEnum.LOGIN_AUTH_ERROR);
         }
 
     }
+
     @ApiOperation("校验手机号是否注册")
     @GetMapping("/checkMobile/{mobile}")
-public boolean checkMobile(@PathVariable String mobile){
-        boolean result= userInfoService.checkMobile(mobile);
+    public boolean checkMobile(@PathVariable String mobile) {
+        boolean result = userInfoService.checkMobile(mobile);
         return userInfoService.checkMobile(mobile);
-}
+    }
 
 }
 
