@@ -21,9 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>
@@ -38,7 +36,6 @@ import java.util.Set;
 @RestController
 @RequestMapping("/admin/core/dict")
 @Slf4j
-@CrossOrigin
 public class AdminDictController {
 
     @Resource

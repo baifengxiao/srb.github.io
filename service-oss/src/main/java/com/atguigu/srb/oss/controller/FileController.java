@@ -19,7 +19,6 @@ import java.io.InputStream;
  * @date: 2022/4/7 18:38
  */
 @Api(tags = "阿里云文件管理")
-@CrossOrigin //跨域
 @RestController
 @RequestMapping("/api/oss/file")
 public class FileController {

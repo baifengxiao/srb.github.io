@@ -13,7 +13,6 @@ import com.atguigu.srb.core.service.UserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.javassist.compiler.CodeGen;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +32,6 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/core/userInfo")
 @Slf4j
-@CrossOrigin
 public class UserInfoController {
 
     @Resource
@@ -90,7 +88,12 @@ public class UserInfoController {
         }
 
     }
-
+    @ApiOperation("校验手机号是否注册")
+    @GetMapping("/checkMobile/{mobile}")
+public boolean checkMobile(@PathVariable String mobile){
+        boolean result= userInfoService.checkMobile(mobile);
+        return userInfoService.checkMobile(mobile);
+}
 
 }
 

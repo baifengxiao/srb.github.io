@@ -12,11 +12,16 @@ spring:
     url: jdbc:mysql://localhost:13306/db200921_srb_core?serverTimezone=GMT%2B8&characte
     username: root
     password: root
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 # nacos服务地址
   redis:
     host: 192.168.44.101
     port: 6379
     database: 0
-#    password: 123456 #默认为空
+    #    password: 123456 #默认为空
     timeout: 3000ms #最大等待时间，超时则抛出异常，否则请求一直等待
     lettuce:
       pool:

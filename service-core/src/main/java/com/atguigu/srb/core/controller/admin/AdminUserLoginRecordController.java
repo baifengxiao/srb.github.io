@@ -2,14 +2,12 @@ package com.atguigu.srb.core.controller.admin;
 
 
 import com.atguigu.common.result.R;
-import com.atguigu.srb.core.controller.UserLoginRecordController;
 import com.atguigu.srb.core.pojo.entity.UserLoginRecord;
 import com.atguigu.srb.core.service.UserLoginRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,7 +25,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/core/userLoginRecord")
 @Slf4j
-@CrossOrigin
 public class AdminUserLoginRecordController {
 
     @Resource
