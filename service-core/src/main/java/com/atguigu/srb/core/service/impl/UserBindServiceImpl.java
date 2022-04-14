@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -34,14 +35,13 @@ public class UserBindServiceImpl extends ServiceImpl<UserBindMapper, UserBind> i
 
         //不同的user_id，相同的身份证，如果存在，则不允许
         QueryWrapper<UserBind> userBindQueryWrapper = new QueryWrapper<>();
-        userBindQueryWrapper.eq("id_card", userBindVO.getIdCard())
-                .eq("id_card", userBindVO.getIdCard())
-                .ne("user_id", userId);
+        userBindQueryWrapper.eq("id_card",userBindVO.getIdCard()).ne("user_id",userId);
         UserBind userBind = baseMapper.selectOne(userBindQueryWrapper);
         Assert.isNull(userBind, ResponseEnum.USER_BIND_IDCARD_EXIST_ERROR);
 
+
         //用户是否曾经填写过绑定表单
-        userBindQueryWrapper = new QueryWrapper<>();
+         userBindQueryWrapper = new QueryWrapper<>();
         userBindQueryWrapper.eq("user_id", userId);
         userBind = baseMapper.selectOne(userBindQueryWrapper);
 
@@ -58,7 +58,7 @@ public class UserBindServiceImpl extends ServiceImpl<UserBindMapper, UserBind> i
         }
 
 
-        HashMap<String, Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("agentId", HfbConst.AGENT_ID);
         paramMap.put("agentUserId", userId);
         paramMap.put("idCard", userBindVO.getIdCard());
