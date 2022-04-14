@@ -1,6 +1,7 @@
 package com.atguigu.srb.core.service;
 
 import com.atguigu.srb.core.pojo.entity.UserBind;
+import com.atguigu.srb.core.pojo.vo.UserBindVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,5 +13,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-03-30
  */
 public interface UserBindService extends IService<UserBind> {
+
+    String commitBindUser(UserBindVO userBindVO, Long userId);
+
 
 }
