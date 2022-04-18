@@ -37,7 +37,7 @@ public class BorrowerController {
         return R.ok().message("信息提交成功");
     }
     @ApiOperation("获取借款人认证状态")
-    @GetMapping("/auth/getBorrowStatus")
+    @GetMapping("/auth/getBorrowerStatus")
     public R getBorrowStatus(HttpServletRequest request){
         String token=request.getHeader("token");
         Long userId = JwtUtils.getUserId(token);

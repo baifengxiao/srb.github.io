@@ -121,22 +121,22 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
 
         //计算下拉列表选中内容
 
-//        String education = dictService.getNameByParentDictCodeAndValue("education", borrower.getEducation());
-//
-//        String industry = dictService.getNameByParentDictCodeAndValue("moneyUse", borrower.getIndustry());
-//
-//        String income = dictService.getNameByParentDictCodeAndValue("income", borrower.getIncome());
-//
-//        String returnSource = dictService.getNameByParentDictCodeAndValue("returnSource", borrower.getReturnSource());
-//
-//        String contactsRelation = dictService.getNameByParentDictCodeAndValue("relation", borrower.getContactsRelation());
+        String education = dictService.getNameByParentDictCodeAndValue("education", borrower.getEducation());
+
+        String industry = dictService.getNameByParentDictCodeAndValue("moneyUse", borrower.getIndustry());
+
+        String income = dictService.getNameByParentDictCodeAndValue("income", borrower.getIncome());
+
+        String returnSource = dictService.getNameByParentDictCodeAndValue("returnSource", borrower.getReturnSource());
+
+        String contactsRelation = dictService.getNameByParentDictCodeAndValue("relation", borrower.getContactsRelation());
 
         //下拉列表
-        borrowerDetailVO.setEducation(dictService.getNameByParentDictCodeAndValue("education", borrower.getEducation()));
-        borrowerDetailVO.setIndustry(dictService.getNameByParentDictCodeAndValue("industry", borrower.getIndustry()));
-        borrowerDetailVO.setIncome(dictService.getNameByParentDictCodeAndValue("income", borrower.getIncome()));
-        borrowerDetailVO.setReturnSource(dictService.getNameByParentDictCodeAndValue("returnSource", borrower.getReturnSource()));
-        borrowerDetailVO.setContactsRelation(dictService.getNameByParentDictCodeAndValue("relation", borrower.getContactsRelation()));
+        borrowerDetailVO.setEducation(education);
+        borrowerDetailVO.setIndustry(industry);
+        borrowerDetailVO.setIncome(income);
+        borrowerDetailVO.setReturnSource(returnSource);
+        borrowerDetailVO.setContactsRelation(contactsRelation);
 
         //审批状态
         String status = BorrowerStatusEnum.getMsgByStatus(borrower.getStatus());
