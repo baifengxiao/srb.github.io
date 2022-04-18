@@ -3,6 +3,7 @@ package com.atguigu.srb.core.service;
 import com.atguigu.srb.core.pojo.entity.Dict;
 import com.atguigu.srb.core.pojo.entity.dto.ExcelDictDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.swagger.models.auth.In;
 
 import java.io.InputStream;
 import java.util.List;
@@ -25,4 +26,5 @@ public interface DictService extends IService<Dict> {
     List<Dict> listByParentId(Long parentId);
 
     List<Dict> findByDictCode(String dictCode);
+    String  getNameByParentDictCodeAndValue(String dictCode, Integer value);
 }

@@ -40,5 +40,13 @@ public class BorrowerController {
         borrowerService.saveBorrowerVOByUserId(borrowerVO, userId);
         return R.ok().message("信息提交成功");
     }
+    @ApiOperation("获取借款人认证状态")
+    @PostMapping("/auth/getBorrowStatus")
+    public R getBorrowStatus(HttpServletRequest request){
+        String token=request.getHeader("token");
+        Long userId = JwtUtils.getUserId(token);
+        Integer status=borrowerService.getStatusByUserid(userId);
+        return R.ok().data("borrowerStatus",status);
+    }
 }
 
