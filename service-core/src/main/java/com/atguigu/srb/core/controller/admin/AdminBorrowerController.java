@@ -55,7 +55,7 @@ public class AdminBorrowerController {
     }
 
     @ApiOperation("借款额度审批")
-    @GetMapping("/approval")
+    @PostMapping("/approval")
     public R approval(@RequestBody BorrowerApprovalVO borrowerApprovalVO) {
         borrowerService.approval(borrowerApprovalVO);
         return R.ok().message("审批完成");

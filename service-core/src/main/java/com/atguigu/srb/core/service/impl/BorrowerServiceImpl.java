@@ -119,6 +119,18 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
         //性别
         borrowerDetailVO.setSex(borrower.getSex() == 1 ? "男" : "女");
 
+        //计算下拉列表选中内容
+
+//        String education = dictService.getNameByParentDictCodeAndValue("education", borrower.getEducation());
+//
+//        String industry = dictService.getNameByParentDictCodeAndValue("moneyUse", borrower.getIndustry());
+//
+//        String income = dictService.getNameByParentDictCodeAndValue("income", borrower.getIncome());
+//
+//        String returnSource = dictService.getNameByParentDictCodeAndValue("returnSource", borrower.getReturnSource());
+//
+//        String contactsRelation = dictService.getNameByParentDictCodeAndValue("relation", borrower.getContactsRelation());
+
         //下拉列表
         borrowerDetailVO.setEducation(dictService.getNameByParentDictCodeAndValue("education", borrower.getEducation()));
         borrowerDetailVO.setIndustry(dictService.getNameByParentDictCodeAndValue("industry", borrower.getIndustry()));
