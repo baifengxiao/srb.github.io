@@ -60,7 +60,7 @@ public class ApiSmsController {
         smsService.send(mobile,param);
 
         //将验证码存入redis
-        redisTemplate.opsForValue().set("srb:sms:code:" + mobile, code, 5, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set("hzgl:sms:code:" + mobile, code, 5, TimeUnit.MINUTES);
 
         return R.ok().message("短信发送成功");
     }

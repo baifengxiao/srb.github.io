@@ -33,8 +33,8 @@ public class UserInfo implements Serializable {
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "1：出借人 2：借款人")
-    private Integer userType;
+//    @ApiModelProperty(value = "1：出借人 2：借款人")
+//    private Integer userType;
 
     @ApiModelProperty(value = "手机号")
     private String mobile;

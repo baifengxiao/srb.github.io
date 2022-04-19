@@ -11,9 +11,8 @@ import lombok.Data;
 @Data
 @ApiModel(description = "登录对象")
 public class LoginVO {
-    @ApiModelProperty(value = "用户类型")
-
-    private Integer userType;
+//    @ApiModelProperty(value = "用户类型")
+//    private Integer userType;
 
     @ApiModelProperty(value = "手机号")
     private String mobile;

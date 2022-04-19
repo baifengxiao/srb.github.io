@@ -52,7 +52,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         Assert.isTrue(count == 0, ResponseEnum.MOBILE_EXIST_ERROR);
         //插入用户信息记录：user_info
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserType(registerVO.getUserType());
+//        userInfo.setUserType(registerVO.getUserType());
         userInfo.setNickName(registerVO.getMobile());
         userInfo.setName(registerVO.getMobile());
         userInfo.setMobile(registerVO.getMobile());
@@ -73,12 +73,13 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
         String mobile = loginVO.getMobile();
         String password = loginVO.getPassword();
-        Integer userType = loginVO.getUserType();
+//        Integer userType = loginVO.getUserType();
 
         //用户是否存在
         QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
         userInfoQueryWrapper.eq("mobile", mobile)
-                .eq("user_type", userType);
+//                .eq("user_type", userType)
+        ;
         UserInfo userInfo = baseMapper.selectOne(userInfoQueryWrapper);
         Assert.notNull(userInfo, ResponseEnum.LOGIN_MOBILE_ERROR);
         //密码是否正确
@@ -103,7 +104,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userInfoVO.setNickName(userInfo.getNickName());
         userInfoVO.setHeadImg(userInfo.getHeadImg());
         userInfoVO.setMobile(userInfo.getMobile());
-        userInfoVO.setUserType(userType);
+//        userInfoVO.setUserType(userType);
 
         //返回
         return userInfoVO;
@@ -117,11 +118,12 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         }
         String mobile = userInfoQuery.getMobile();
         Integer status = userInfoQuery.getStatus();
-        Integer userType = userInfoQuery.getUserType();
+//        Integer userType = userInfoQuery.getUserType();
         QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
         userInfoQueryWrapper.eq(mobile != null, "mobile", mobile)
                 .eq(status != null, "status", status)
-                .eq(userType != null, "user_type", userType);
+//                .eq(userType != null, "user_type", userType)
+        ;
         return baseMapper.selectPage(pageParam, userInfoQueryWrapper);
     }
 
@@ -165,7 +167,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         //组装结果数据
         UserIndexVO userIndexVO = new UserIndexVO();
         userIndexVO.setUserId(userInfo.getId());
-        userIndexVO.setUserType(userInfo.getUserType());
+//        userIndexVO.setUserType(userInfo.getUserType());
         userIndexVO.setName(userInfo.getName());
         userIndexVO.setNickName(userInfo.getNickName());
         userIndexVO.setHeadImg(userInfo.getHeadImg());

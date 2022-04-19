@@ -55,7 +55,7 @@ public class UserInfoController {
         //校验验证码
 
         //注册
-        String codeGen = (String) redisTemplate.opsForValue().get("srb:sms:code:" + mobile);
+        String codeGen = (String) redisTemplate.opsForValue().get("hzgl:sms:code:" + mobile);
         Assert.equals(code, codeGen, ResponseEnum.CODE_ERROR);
         userInfoService.register(registerVO);
         return R.ok().message("注册成功");
