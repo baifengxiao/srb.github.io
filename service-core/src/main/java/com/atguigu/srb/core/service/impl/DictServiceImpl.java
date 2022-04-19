@@ -111,7 +111,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
         }
         dictQueryWrapper = new QueryWrapper<>();
         dictQueryWrapper
-                .eq("parent_id", parentDict.getParentId())
+                .eq("parent_id", parentDict.getId())
                 .eq("value", value);
         Dict dict = baseMapper.selectOne(dictQueryWrapper);
         if (dict == null) {
