@@ -5,11 +5,8 @@ import com.atguigu.srb.core.enums.IntegralEnum;
 import com.atguigu.srb.core.mapper.BorrowerAttachMapper;
 import com.atguigu.srb.core.mapper.UserInfoMapper;
 import com.atguigu.srb.core.mapper.UserIntegralMapper;
-import com.atguigu.srb.core.pojo.entity.Borrower;
+import com.atguigu.srb.core.pojo.entity.*;
 import com.atguigu.srb.core.mapper.BorrowerMapper;
-import com.atguigu.srb.core.pojo.entity.BorrowerAttach;
-import com.atguigu.srb.core.pojo.entity.UserInfo;
-import com.atguigu.srb.core.pojo.entity.UserIntegral;
 import com.atguigu.srb.core.pojo.vo.BorrowerApprovalVO;
 import com.atguigu.srb.core.pojo.vo.BorrowerAttachVO;
 import com.atguigu.srb.core.pojo.vo.BorrowerDetailVO;
@@ -43,6 +40,9 @@ import java.util.List;
 public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> implements BorrowerService {
 
     @Resource
+    private BorrowerMapper borrowerMapper;
+
+    @Resource
     private UserIntegralMapper userIntegralMapper;
 
     @Resource
@@ -66,7 +66,7 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
         BeanUtils.copyProperties(borrowerVO, borrower);
         borrower.setUserId(userId);
         borrower.setName(userInfo.getName());
-        borrower.setIdCard(userInfo.getIdCard());
+//        borrower.setIdCard(userInfo.getIdCard());
         borrower.setMobile(userInfo.getMobile());
         borrower.setStatus(BorrowerStatusEnum.AUTH_RUN.getStatus());//认证中
         baseMapper.insert(borrower);
@@ -114,28 +114,29 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
         //填充基本借款人信息
         BorrowerDetailVO borrowerDetailVO = new BorrowerDetailVO();
         BeanUtils.copyProperties(borrower, borrowerDetailVO);
+
         //婚否
-        borrowerDetailVO.setMarry(borrower.getMarry() ? "是" : "否");
+//        borrowerDetailVO.setMarry(borrower.getMarry() ? "是" : "否");
         //性别
         borrowerDetailVO.setSex(borrower.getSex() == 1 ? "男" : "女");
 
         //计算下拉列表选中内容
 
-        String education = dictService.getNameByParentDictCodeAndValue("education", borrower.getEducation());
+//        String education = dictService.getNameByParentDictCodeAndValue("education", borrower.getEducation());
 
-        String industry = dictService.getNameByParentDictCodeAndValue("moneyUse", borrower.getIndustry());
+//        String industry = dictService.getNameByParentDictCodeAndValue("moneyUse", borrower.getIndustry());
 
         String income = dictService.getNameByParentDictCodeAndValue("income", borrower.getIncome());
 
-        String returnSource = dictService.getNameByParentDictCodeAndValue("returnSource", borrower.getReturnSource());
+//        String returnSource = dictService.getNameByParentDictCodeAndValue("returnSource", borrower.getReturnSource());
 
         String contactsRelation = dictService.getNameByParentDictCodeAndValue("relation", borrower.getContactsRelation());
 
         //下拉列表
-        borrowerDetailVO.setEducation(education);
-        borrowerDetailVO.setIndustry(industry);
+//        borrowerDetailVO.setEducation(education);
+//        borrowerDetailVO.setIndustry(industry);
         borrowerDetailVO.setIncome(income);
-        borrowerDetailVO.setReturnSource(returnSource);
+//        borrowerDetailVO.setReturnSource(returnSource);
         borrowerDetailVO.setContactsRelation(contactsRelation);
 
         //审批状态
@@ -166,6 +167,8 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
 
         //获取用户对象
         UserInfo userInfo = userInfoMapper.selectById(userId);
+
+
         //用户原始积分
         Integer integral = userInfo.getIntegral();
 
@@ -207,7 +210,13 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
         userInfo.setIntegral(currentintegral);
         //修改审核状态
         userInfo.setBorrowAuthStatus(borrowerApprovalVO.getStatus());
-        //更新userInfo
+        //userinfo和borrower表改成真名
+        userInfo.setName(borrower.getContactsName());
+        borrower.setName(borrower.getContactsName());
+        //更新
         userInfoMapper.updateById(userInfo);
+        borrowerMapper.updateById(borrower);
+
+
     }
 }

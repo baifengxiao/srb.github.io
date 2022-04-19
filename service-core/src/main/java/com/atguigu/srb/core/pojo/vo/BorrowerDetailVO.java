@@ -26,16 +26,16 @@ public class BorrowerDetailVO {
     private String sex;
     @ApiModelProperty(value = "年龄")
     private Integer age;
-    @ApiModelProperty(value = "学历")
-    private String education;
-    @ApiModelProperty(value = "是否结婚")
-    private String marry;
-    @ApiModelProperty(value = "行业")
-    private String industry;
+//    @ApiModelProperty(value = "学历")
+//    private String education;
+//    @ApiModelProperty(value = "是否结婚")
+//    private String marry;
+//    @ApiModelProperty(value = "行业")
+//    private String industry;
     @ApiModelProperty(value = "月收入")
     private String income;
-    @ApiModelProperty(value = "还款来源")
-    private String returnSource;
+//    @ApiModelProperty(value = "还款来源")
+//    private String returnSource;
     @ApiModelProperty(value = "联系人名称")
     private String contactsName;
     @ApiModelProperty(value = "联系人手机")
