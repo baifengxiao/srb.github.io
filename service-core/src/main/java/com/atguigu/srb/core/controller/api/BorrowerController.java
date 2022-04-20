@@ -21,14 +21,14 @@ import javax.servlet.http.HttpServletRequest;
  * @author yupengtao
  * @since 2022-03-30
  */
-@Api(tags = "借款人")
+@Api(tags = "身份认证")
 @RestController
 @RequestMapping("/api/core/borrower")
 @Slf4j
 public class BorrowerController {
     @Resource
     private BorrowerService borrowerService;
-    @ApiOperation("保存借款人信息")
+    @ApiOperation("保存申请人信息")
     @PostMapping("/auth/save")
     public R save(@RequestBody BorrowerVO borrowerVO, HttpServletRequest request) {
         String token = request.getHeader("token");
@@ -36,7 +36,7 @@ public class BorrowerController {
         borrowerService.saveBorrowerVOByUserId(borrowerVO, userId);
         return R.ok().message("信息提交成功");
     }
-    @ApiOperation("获取借款人认证状态")
+    @ApiOperation("获取申请人认证状态")
     @GetMapping("/auth/getBorrowerStatus")
     public R getBorrowStatus(HttpServletRequest request){
         String token=request.getHeader("token");

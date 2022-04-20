@@ -106,6 +106,17 @@ public class UserInfoController {
         UserIndexVO userIndexVO = userInfoService.getIndexUserInfo(userId);
         return R.ok().data("userIndexVO", userIndexVO);
     }
+    @ApiOperation("获取合租暗号")
+    @GetMapping("/auth/getHomeIdById")
+    public R getHomeIdById(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Long userId = JwtUtils.getUserId(token);
+        Integer status = userInfoService.getHomeIdById(userId);
+        return R.ok().data("status",status);
+    }
+
+
+
 
 }
 

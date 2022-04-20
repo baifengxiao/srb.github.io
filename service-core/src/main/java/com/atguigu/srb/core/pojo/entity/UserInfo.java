@@ -74,6 +74,8 @@ public class UserInfo implements Serializable {
 
     @ApiModelProperty(value = "状态（0：锁定 1：正常）")
     private Integer status;
+    @ApiModelProperty(value = "绑定暗号")
+    private Integer home_id;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;

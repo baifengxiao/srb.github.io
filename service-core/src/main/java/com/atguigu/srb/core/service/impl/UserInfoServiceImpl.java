@@ -4,8 +4,10 @@ import com.atguigu.common.exception.Assert;
 import com.atguigu.common.result.ResponseEnum;
 import com.atguigu.common.util.MD5;
 import com.atguigu.srb.base.util.JwtUtils;
+import com.atguigu.srb.core.enums.BorrowerStatusEnum;
 import com.atguigu.srb.core.mapper.UserAccountMapper;
 import com.atguigu.srb.core.mapper.UserLoginRecordMapper;
+import com.atguigu.srb.core.pojo.entity.Borrower;
 import com.atguigu.srb.core.pojo.entity.UserAccount;
 import com.atguigu.srb.core.pojo.entity.UserInfo;
 import com.atguigu.srb.core.mapper.UserInfoMapper;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -176,6 +179,19 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userIndexVO.setFreezeAmount(userAccount.getFreezeAmount());
         userIndexVO.setLastLoginTime(userLoginRecord.getCreateTime());
         return userIndexVO;
+
+    }
+
+    @Override
+    public Integer getHomeIdById(Long userId) {
+        QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
+        userInfoQueryWrapper.select("home_id")
+                .eq("id", userId);
+        UserInfo userInfo = baseMapper.selectOne(userInfoQueryWrapper);
+        System.out.println(userInfo);
+        Integer status = userInfo.getHome_id();
+        return status;
+
 
     }
 
