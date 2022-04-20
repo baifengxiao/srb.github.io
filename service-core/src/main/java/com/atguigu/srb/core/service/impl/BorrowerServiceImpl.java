@@ -101,7 +101,9 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
             return baseMapper.selectPage(pageParam, null);
         }
         QueryWrapper<Borrower> borrowerQueryWrapper = new QueryWrapper<>();
-        borrowerQueryWrapper.like("name", keyword).or().like("id_card", keyword).or().like("mobile", keyword).orderByDesc("id");
+        borrowerQueryWrapper.like("name", keyword).or()
+//                .like("id_card", keyword)
+                .or().like("mobile", keyword).orderByDesc("id");
         return baseMapper.selectPage(pageParam, borrowerQueryWrapper);
     }
 

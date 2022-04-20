@@ -36,14 +36,12 @@ public class BillController {
     @Resource
     private BillService billService;
 
-
-
     @ApiOperation("添加账单")
     @PostMapping("/save")
     public R list(@RequestBody BillVO billVO, HttpServletRequest request) {
 
-        billService.save(billVO,request);
+        billService.save(billVO, request);
 
-        return R.ok().data("billVO",billVO);
+        return R.ok().data("billVO", billVO);
     }
 }

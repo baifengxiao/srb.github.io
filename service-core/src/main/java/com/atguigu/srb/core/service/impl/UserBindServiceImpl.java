@@ -43,7 +43,9 @@ public class UserBindServiceImpl extends ServiceImpl<UserBindMapper, UserBind> i
 
         //不同的user_id，相同的身份证，如果存在，则不允许
         QueryWrapper<UserBind> userBindQueryWrapper = new QueryWrapper<>();
-        userBindQueryWrapper.eq("id_card", userBindVO.getIdCard()).ne("user_id", userId);
+        userBindQueryWrapper
+//                .eq("id_card", userBindVO.getIdCard())
+                .ne("user_id", userId);
         UserBind userBind = baseMapper.selectOne(userBindQueryWrapper);
         Assert.isNull(userBind, ResponseEnum.USER_BIND_IDCARD_EXIST_ERROR);
 
@@ -103,7 +105,7 @@ public class UserBindServiceImpl extends ServiceImpl<UserBindMapper, UserBind> i
         UserInfo userInfo = userInfoMapper.selectById(agentUserId);
         userInfo.setBindCode(bindCode);
         userInfo.setName(userBind.getName());
-        userInfo.setIdCard(userBind.getIdCard());
+//        userInfo.setIdCard(userBind.getIdCard());
         userInfo.setBindStatus(UserBindEnum.BIND_OK.getStatus());
         userInfoMapper.updateById(userInfo);
     }

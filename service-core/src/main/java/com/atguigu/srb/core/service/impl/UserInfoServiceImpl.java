@@ -187,9 +187,12 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
         userInfoQueryWrapper.select("home_id")
                 .eq("id", userId);
-        UserInfo userInfo = baseMapper.selectOne(userInfoQueryWrapper);
-        System.out.println(userInfo);
-        Integer status = userInfo.getHome_id();
+
+        List<Object> objects = baseMapper.selectObjs(userInfoQueryWrapper);
+        if (objects.size() == 0) {
+            return BorrowerStatusEnum.NO_AUTH.getStatus();
+        }
+        Integer status = (Integer) objects.get(0);
         return status;
 
 

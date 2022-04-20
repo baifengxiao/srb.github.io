@@ -48,14 +48,14 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(value = "用户姓名")
     private String name;
 
-    @ApiModelProperty(value = "身份证号")
-    private String idCard;
+//    @ApiModelProperty(value = "身份证号")
+//    private String idCard;
 
-    @ApiModelProperty(value = "邮箱")
-    private String email;
+//    @ApiModelProperty(value = "邮箱")
+//    private String email;
 
-    @ApiModelProperty(value = "微信用户标识openid")
-    private String openid;
+//    @ApiModelProperty(value = "微信用户标识openid")
+//    private String openid;
 
     @ApiModelProperty(value = "头像")
     private String headImg;

@@ -111,8 +111,8 @@ public class UserInfoController {
     public R getHomeIdById(HttpServletRequest request) {
         String token = request.getHeader("token");
         Long userId = JwtUtils.getUserId(token);
-        Integer status = userInfoService.getHomeIdById(userId);
-        return R.ok().data("status",status);
+        Integer homeid = userInfoService.getHomeIdById(userId);
+        return R.ok().data("homeid",homeid);
     }
 
 

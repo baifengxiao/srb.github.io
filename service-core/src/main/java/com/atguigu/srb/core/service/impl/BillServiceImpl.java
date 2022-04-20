@@ -7,6 +7,7 @@ import com.atguigu.srb.core.pojo.entity.Bill;
 import com.atguigu.srb.core.pojo.entity.IntegralGrade;
 import com.atguigu.srb.core.pojo.vo.BillVO;
 import com.atguigu.srb.core.service.BillService;
+import com.atguigu.srb.core.service.UserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,8 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
 
     @Resource
     private BillMapper billMapper;
+    @Resource
+    private UserInfoService userInfoService;
     @Override
     public BillVO save(@RequestBody BillVO billVO, HttpServletRequest request) {
         String token = request.getHeader("token");
@@ -35,7 +38,9 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
         bill.setTypeId(billVO.getType());
         bill.setPrice(billVO.getPrice());
         bill.setExplain(billVO.getExplain());
-//        bill.setHome_id();
+
+        Integer homeid = userInfoService.getHomeIdById(userId);
+        bill.setHome_id(homeid);
 
         billMapper.insert(bill);
         return billVO;

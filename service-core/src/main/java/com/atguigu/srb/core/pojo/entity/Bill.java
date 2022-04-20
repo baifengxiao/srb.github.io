@@ -36,7 +36,7 @@ public class Bill implements Serializable {
     @TableField(value ="explain_")
     private String explain;
     @TableField(value ="home_id")
-    private String home_id;
+    private Integer home_id;
     @TableField(value = "user_id")
     private Long user_id;
 
