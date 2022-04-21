@@ -8,12 +8,14 @@ import com.atguigu.srb.core.pojo.entity.IntegralGrade;
 import com.atguigu.srb.core.pojo.vo.BillVO;
 import com.atguigu.srb.core.service.BillService;
 import com.atguigu.srb.core.service.UserInfoService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author: baifengxiao
@@ -26,6 +28,7 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
     private BillMapper billMapper;
     @Resource
     private UserInfoService userInfoService;
+
     @Override
     public BillVO save(@RequestBody BillVO billVO, HttpServletRequest request) {
         String token = request.getHeader("token");
@@ -45,4 +48,20 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
         billMapper.insert(bill);
         return billVO;
     }
+
+    @Override
+    public List<Bill> listAll(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Long userId = JwtUtils.getUserId(token);
+        Integer homeId = userInfoService.getHomeIdById(userId);
+        QueryWrapper<Bill> billQueryWrapper = new QueryWrapper<>();
+        billQueryWrapper.eq("user_id", userId)
+                .eq("home_id", homeId);
+        List<Bill> billList = baseMapper.selectList(billQueryWrapper);
+        System.out.println("数据:"+billList);
+        return billList;
+
+    }
+
+
 }

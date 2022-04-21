@@ -24,7 +24,7 @@ import java.math.BigDecimal;
  * @author yupengtao
  * @since 2022-03-30
  */
-@Api(tags = "借款信息")
+@Api(tags = "开支信息")
 @RestController
 @RequestMapping("/api/core/borrowInfo")
 @Slf4j
@@ -32,7 +32,7 @@ public class BorrowInfoController {
     @Resource
     private BorrowInfoService borrowInfoService;
 
-    @ApiOperation("获取借款额度")
+    @ApiOperation("获取开支额度")
     @GetMapping("/auth/getBorrowAmount")
 
     public R getBorrowAmount(HttpServletRequest request) {

@@ -44,4 +44,26 @@ public class BillController {
 
         return R.ok().data("billVO", billVO);
     }
+
+    @ApiOperation("账单列表")
+    @GetMapping("/list")
+    public R listAll(HttpServletRequest request) {
+
+        List<Bill> listAll = billService.listAll(request);
+
+        return R.ok().data("listAll", listAll).message("数据列表成功");
+    }
+
+    @ApiOperation(value = "根据id删除记录", notes = "逻辑删除数据记录")
+    @DeleteMapping("/remove/{id}")
+    public R removeById(
+            @ApiParam(value = "数据id", example = "100", required = true)
+            @PathVariable Long id) {
+        boolean result = billService.removeById(id);
+        if (result) {
+            return R.ok().message("删除成功");
+        } else {
+            return R.error().message("删除失败");
+        }
+    }
 }

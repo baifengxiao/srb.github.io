@@ -126,7 +126,7 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
 
 //        String education = dictService.getNameByParentDictCodeAndValue("education", borrower.getEducation());
 
-//        String industry = dictService.getNameByParentDictCodeAndValue("moneyUse", borrower.getIndustry());
+        String industry = dictService.getNameByParentDictCodeAndValue("moneyUse", borrower.getIndustry());
 
         String income = dictService.getNameByParentDictCodeAndValue("income", borrower.getIncome());
 
@@ -136,7 +136,7 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
 
         //下拉列表
 //        borrowerDetailVO.setEducation(education);
-//        borrowerDetailVO.setIndustry(industry);
+        borrowerDetailVO.setIndustry(industry);
         borrowerDetailVO.setIncome(income);
 //        borrowerDetailVO.setReturnSource(returnSource);
         borrowerDetailVO.setContactsRelation(contactsRelation);

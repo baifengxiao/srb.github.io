@@ -60,7 +60,6 @@ public class AdminIntegralGradeController {
 //        }
         Assert.notNull(integralGrade.getBorrowAmount(), ResponseEnum.BAD_SQL_GRAMMAR_ERROR);
 
-
         boolean result = integralGradeService.save(integralGrade);
         if (result) {
             return R.ok().message("保存成功");

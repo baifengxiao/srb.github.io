@@ -7,11 +7,8 @@ import com.atguigu.srb.base.util.JwtUtils;
 import com.atguigu.srb.core.enums.BorrowerStatusEnum;
 import com.atguigu.srb.core.mapper.UserAccountMapper;
 import com.atguigu.srb.core.mapper.UserLoginRecordMapper;
-import com.atguigu.srb.core.pojo.entity.Borrower;
-import com.atguigu.srb.core.pojo.entity.UserAccount;
-import com.atguigu.srb.core.pojo.entity.UserInfo;
+import com.atguigu.srb.core.pojo.entity.*;
 import com.atguigu.srb.core.mapper.UserInfoMapper;
-import com.atguigu.srb.core.pojo.entity.UserLoginRecord;
 import com.atguigu.srb.core.pojo.query.UserInfoQuery;
 import com.atguigu.srb.core.pojo.vo.LoginVO;
 import com.atguigu.srb.core.pojo.vo.RegisterVO;
@@ -23,6 +20,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +40,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     @Resource
     private UserAccountMapper userAccountMapper;
 
+    @Resource
+    private UserInfoMapper userInfoMapper;
     @Resource
     UserLoginRecordMapper userLoginRecordMapper;
 
@@ -195,7 +195,13 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         Integer status = (Integer) objects.get(0);
         return status;
 
+    }
 
+    @Override
+    public void saveHomeIdById(UserInfo userInfo, Long userId) {
+        UserInfo userInfo1 = userInfoMapper.selectById(userId);
+        userInfo1.setHome_id(userInfo.getHome_id());
+        userInfoMapper.updateById(userInfo1);
     }
 
 }

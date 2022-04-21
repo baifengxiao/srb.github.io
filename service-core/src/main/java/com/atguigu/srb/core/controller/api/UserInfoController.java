@@ -6,10 +6,8 @@ import com.atguigu.common.result.R;
 import com.atguigu.common.result.ResponseEnum;
 import com.atguigu.common.util.RegexValidateUtils;
 import com.atguigu.srb.base.util.JwtUtils;
-import com.atguigu.srb.core.pojo.vo.LoginVO;
-import com.atguigu.srb.core.pojo.vo.RegisterVO;
-import com.atguigu.srb.core.pojo.vo.UserIndexVO;
-import com.atguigu.srb.core.pojo.vo.UserInfoVO;
+import com.atguigu.srb.core.pojo.entity.UserInfo;
+import com.atguigu.srb.core.pojo.vo.*;
 import com.atguigu.srb.core.service.UserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -113,6 +111,15 @@ public class UserInfoController {
         Long userId = JwtUtils.getUserId(token);
         Integer homeid = userInfoService.getHomeIdById(userId);
         return R.ok().data("homeid",homeid);
+    }
+
+    @ApiOperation("保存合租暗号")
+    @PostMapping("/auth/saveHomeIdById")
+    public R saveHomeIdById(@RequestBody UserInfo userInfo, HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Long userId = JwtUtils.getUserId(token);
+        userInfoService.saveHomeIdById(userInfo,userId);
+        return R.ok().message("信息提交成功");
     }
 
 

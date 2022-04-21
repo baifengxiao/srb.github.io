@@ -30,8 +30,8 @@ public class BorrowerDetailVO {
 //    private String education;
 //    @ApiModelProperty(value = "是否结婚")
 //    private String marry;
-//    @ApiModelProperty(value = "行业")
-//    private String industry;
+    @ApiModelProperty(value = "行业")
+    private String industry;
     @ApiModelProperty(value = "月收入")
     private String income;
 //    @ApiModelProperty(value = "还款来源")

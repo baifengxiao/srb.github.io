@@ -16,4 +16,7 @@ public interface BillService extends IService<Bill> {
 
 
     BillVO save(BillVO billVO, HttpServletRequest request);
+
+
+    List<Bill> listAll(HttpServletRequest request);
 }

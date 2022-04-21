@@ -23,8 +23,8 @@ public class BorrowerVO {
 //    private Integer education;
 //    @ApiModelProperty(value = "是否结婚（1：是 0：否）")
 //    private Boolean marry;
-//    @ApiModelProperty(value = "行业")
-//    private Integer industry;
+    @ApiModelProperty(value = "行业")
+    private Integer industry;
     @ApiModelProperty(value = "月收入")
     private Integer income;
 //    @ApiModelProperty(value = "还款来源")

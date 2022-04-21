@@ -55,8 +55,8 @@ public class Borrower implements Serializable {
 //    @TableField("is_marry")
 //    private Boolean marry;
 //
-//    @ApiModelProperty(value = "行业")
-//    private Integer industry;
+    @ApiModelProperty(value = "行业")
+    private Integer industry;
 
     @ApiModelProperty(value = "月收入")
     private Integer income;

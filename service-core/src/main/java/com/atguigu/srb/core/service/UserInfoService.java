@@ -38,4 +38,7 @@ public interface UserInfoService extends IService<UserInfo> {
     UserIndexVO getIndexUserInfo(Long userId);
 
     Integer getHomeIdById(Long userId);
+
+
+    void saveHomeIdById(UserInfo userInfo, Long userId);
 }

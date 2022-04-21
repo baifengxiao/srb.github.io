@@ -41,21 +41,7 @@ public class Bill implements Serializable {
     private Long user_id;
 
 
-    /**
-     * 类别名称
-     */
-    @Transient
-    private String typeName;
-    /**
-     * 开始时间:用于查询
-     */
-    @Transient
-    private LocalDateTime date1;
-    /**
-     * 结束时间：用于查询
-     */
-    @Transient
-    private LocalDateTime date2;
+
 
 }
 
