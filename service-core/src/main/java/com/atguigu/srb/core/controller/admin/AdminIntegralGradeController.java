@@ -75,6 +75,7 @@ public class AdminIntegralGradeController {
         if (integralGrade != null) {
             return R.ok().data("record", integralGrade);
         } else {
+            System.out.println(integralGrade);
             return R.error().message("数据获取失败");
         }
     }

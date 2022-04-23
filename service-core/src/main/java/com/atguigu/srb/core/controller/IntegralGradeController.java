@@ -21,10 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/core/integralGrade")
 public class IntegralGradeController {
 
-    @ApiOperation("测试")
-    @GetMapping("/test")
-    public void test(){
-        return;
-    }
+
 }
 

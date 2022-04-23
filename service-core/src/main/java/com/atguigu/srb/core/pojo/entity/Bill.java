@@ -39,6 +39,11 @@ public class Bill implements Serializable {
     private Integer home_id;
     @TableField(value = "user_id")
     private Long user_id;
+    @TableField(value = "status")
+    private Integer status;
+    @TableField(exist = false)
+    private Long sumAll;
+
 
 
 

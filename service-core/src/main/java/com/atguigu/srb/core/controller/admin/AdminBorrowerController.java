@@ -30,15 +30,9 @@ public class AdminBorrowerController {
 
     @ApiOperation("获取借款人分页列表")
     @GetMapping("/list/{page}/{limit}")
-    public R listPage(@ApiParam(value = "当前页码", required = true)
-                      @PathVariable Long page,
-
-                      @ApiParam(value = "每页记录数", required = true)
-                      @PathVariable Long limit,
-
-                      @ApiParam(value = "查询关键字", required = false)
-                      @RequestParam String keyword
-    ) {
+    public R listPage(@ApiParam(value = "当前页码", required = true) @PathVariable Long page,
+                      @ApiParam(value = "每页记录数", required = true) @PathVariable Long limit,
+                      @ApiParam(value = "查询关键字", required = false) @RequestParam String keyword) {
         Page<Borrower> pageParam = new Page<>(page, limit);
         IPage<Borrower> pageModel = borrowerService.listPage(pageParam, keyword);
         return R.ok().data("pageModel", pageModel);
@@ -46,9 +40,7 @@ public class AdminBorrowerController {
 
     @ApiOperation("获取借款人信息")
     @GetMapping("/show/{id}")
-    public R show(
-            @ApiParam(value = "借款人id", required = true)
-            @PathVariable Long id) {
+    public R show(@ApiParam(value = "借款人id", required = true) @PathVariable Long id) {
         BorrowerDetailVO borrowerDetailVO = borrowerService.getBorrowerDetailVoById(id);
         return R.ok().data("borrowerDetailVO", borrowerDetailVO);
 
