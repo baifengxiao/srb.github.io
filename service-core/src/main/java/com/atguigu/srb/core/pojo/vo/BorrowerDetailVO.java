@@ -12,7 +12,7 @@ import java.util.List;
  * @date: 2022/4/18 12:26
  */
 @Data
-@ApiModel(description="借款人信息详情")
+@ApiModel(description="申请人信息详情")
 public class BorrowerDetailVO {
     @ApiModelProperty(value = "用户id")
     private Long userId;
@@ -46,6 +46,6 @@ public class BorrowerDetailVO {
     private String status;
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
-    @ApiModelProperty(value = "借款人附件资料")
+    @ApiModelProperty(value = "申请人附件资料")
     private List<BorrowerAttachVO> borrowerAttachVOList;
 }

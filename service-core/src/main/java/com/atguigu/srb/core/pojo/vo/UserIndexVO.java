@@ -22,7 +22,7 @@ public class UserIndexVO {
     @ApiModelProperty(value = "用户昵称")
     private String nickName;
 
-//    @ApiModelProperty(value = "1：出借人 2：借款人")
+
 //    private Integer userType;
 
     @ApiModelProperty(value = "用户头像")

@@ -19,6 +19,6 @@ public class UserInfoQuery {
     @ApiModelProperty(value = "状态")
     private Integer status;
 
-//    @ApiModelProperty(value = "1：出借人 2：借款人")
+
 //    private Integer userType;
 }

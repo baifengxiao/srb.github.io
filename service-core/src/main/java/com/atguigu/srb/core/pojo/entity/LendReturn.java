@@ -41,7 +41,7 @@ public class LendReturn implements Serializable {
     @ApiModelProperty(value = "还款批次号")
     private String returnNo;
 
-    @ApiModelProperty(value = "借款人用户id")
+    @ApiModelProperty(value = "申请人用户id")
     private Long userId;
 
     @ApiModelProperty(value = "借款金额")

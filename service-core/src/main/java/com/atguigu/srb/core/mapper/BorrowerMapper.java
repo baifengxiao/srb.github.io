@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- * 借款人 Mapper 接口
+ * 申请人 Mapper 接口
  * </p>
  *
  * @author yupengtao

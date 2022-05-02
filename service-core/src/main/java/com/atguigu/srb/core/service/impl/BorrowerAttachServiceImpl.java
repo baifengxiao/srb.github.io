@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * <p>
- * 借款人上传资源表 服务实现类
+ * 申请人上传资源表 服务实现类
  * </p>
  *
  * @author yupengtao

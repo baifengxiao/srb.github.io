@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 借款人
+ * 申请人
  * </p>
  *
  * @author yupengtao
@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Borrower对象", description="借款人")
+@ApiModel(value="Borrower对象", description="申请人")
 public class Borrower implements Serializable {
 
     private static final long serialVersionUID = 1L;

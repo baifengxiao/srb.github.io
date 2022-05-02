@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 借款人上传资源表
+ * 申请人上传资源表
  * </p>
  *
  * @author yupengtao
@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="BorrowerAttach对象", description="借款人上传资源表")
+@ApiModel(value="BorrowerAttach对象", description="申请人上传资源表")
 public class BorrowerAttach implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ public class BorrowerAttach implements Serializable {
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "借款人id")
+    @ApiModelProperty(value = "申请人id")
     private Long borrowerId;
 
     @ApiModelProperty(value = "图片类型（idCard1：身份证正面，idCard2：身份证反面，house：房产证，car：车）")

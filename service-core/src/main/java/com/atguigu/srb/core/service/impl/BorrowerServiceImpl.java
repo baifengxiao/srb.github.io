@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * <p>
- * 借款人 服务实现类
+ * 申请人 服务实现类
  * </p>
  *
  * @author yupengtao
@@ -110,10 +110,10 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
     @Override
     public BorrowerDetailVO getBorrowerDetailVoById(Long id) {
 
-        //获取借款人信息
+        //获取申请人信息
         Borrower borrower = baseMapper.selectById(id);
 
-        //填充基本借款人信息
+        //填充基本申请人信息
         BorrowerDetailVO borrowerDetailVO = new BorrowerDetailVO();
         BeanUtils.copyProperties(borrower, borrowerDetailVO);
 
@@ -178,7 +178,7 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
         UserIntegral userIntegral = new UserIntegral();
         userIntegral.setUserId(userId);
         userIntegral.setIntegral(borrowerApprovalVO.getInfoIntegral());
-        userIntegral.setContent("借款人基本信息");
+        userIntegral.setContent("基本信息");
         userIntegralMapper.insert(userIntegral);
         int currentintegral = integral + borrowerApprovalVO.getInfoIntegral();
 

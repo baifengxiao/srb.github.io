@@ -10,8 +10,10 @@ import com.atguigu.srb.core.pojo.entity.Borrower;
 import com.atguigu.srb.core.pojo.entity.IntegralGrade;
 import com.atguigu.srb.core.pojo.entity.UserInfo;
 import com.atguigu.srb.core.pojo.query.UserInfoQuery;
+import com.atguigu.srb.core.pojo.vo.BillPriceVO;
 import com.atguigu.srb.core.pojo.vo.BillVO;
 import com.atguigu.srb.core.pojo.vo.RegisterVO;
+import com.atguigu.srb.core.pojo.vo.UserIndexVO;
 import com.atguigu.srb.core.service.BillService;
 import com.atguigu.srb.core.service.IntegralGradeService;
 import com.atguigu.srb.core.service.UserInfoService;
@@ -50,6 +52,15 @@ public class BillController {
         return R.ok().data("billVO", billVO);
     }
 
+    @ApiOperation("修改账单")
+    @PutMapping("/updata/{id}")
+    public R updata(@RequestBody BillVO billVO, HttpServletRequest request, @PathVariable Long id) {
+
+        billService.updata(billVO, request,id);
+
+        return R.ok().data("billVO", billVO);
+    }
+
 
     @ApiOperation("账单列表")
     @GetMapping("/list")
@@ -60,7 +71,7 @@ public class BillController {
         return R.ok().data("listAll", listAll).message("数据列表成功");
     }
 
-    @ApiOperation("获取个人消费金额")
+    @ApiOperation("获取个人最大单消费金额")
     @GetMapping("/listMyBill")
     public R listMyBill(HttpServletRequest request) {
 
@@ -73,7 +84,7 @@ public class BillController {
     @GetMapping("/listMyBillAccount")
     public R listMyBillAccount(HttpServletRequest request) {
 
-        Long listMyBillAccount = billService.listMyBillAccount(request);
+        Integer listMyBillAccount = billService.listMyBillAccount(request);
 
         return R.ok().data("listMyBillAccount", listMyBillAccount).message("数据列表成功");
     }
@@ -92,7 +103,7 @@ public class BillController {
     @GetMapping("/listUnSettled")
     public R listUnSettled(HttpServletRequest request) {
 
-        Long listUnSettled = billService.listUnSettled(request);
+        Integer listUnSettled = billService.listUnSettled(request);
 
         return R.ok().data("listUnSettled", listUnSettled).message("成功");
     }
@@ -101,7 +112,7 @@ public class BillController {
     @GetMapping("/listOurBillAccount")
     public R listOurBillAccount(HttpServletRequest request) {
 
-        Long listOurBillAccount = billService.listOurBillAccount(request);
+        Integer listOurBillAccount = billService.listOurBillAccount(request);
 
         return R.ok().data("listOurBillAccount", listOurBillAccount).message("数据列表成功");
     }
@@ -117,10 +128,12 @@ public class BillController {
 
     @ApiOperation("获取账单分页列表")
     @GetMapping("/listAll/{page}/{limit}")
-    public R listPage(@ApiParam(value = "当前页码", required = true) @PathVariable Long page, @ApiParam(value = "每页记录数", required = true) @PathVariable Long limit) {
+    public R listPage(HttpServletRequest request,
+                      @ApiParam(value = "当前页码", required = true) @PathVariable Long page,
+                      @ApiParam(value = "每页记录数", required = true) @PathVariable Long limit) {
         Page<Bill> pageParam = new Page<>(page, limit);
 
-        IPage<Bill> pageModel = billService.listPage(pageParam);
+        IPage<Bill> pageModel = billService.listPage(pageParam,request);
         return R.ok().data("pageModel", pageModel);
     }
 
@@ -146,5 +159,13 @@ public class BillController {
         billService.lock(id, status);
         return R.ok().message(status == 1 ? "解锁成功" : "锁定成功");
 
+    }
+    @ApiOperation("获取个人各类消费总和")
+    @GetMapping("/auth/getUserPrice")
+    public R getIndexUserInfo(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Long userId = JwtUtils.getUserId(token);
+        BillPriceVO billPriceVO=billService.getUserPrice(userId);
+        return R.ok().data("billPriceVO", billPriceVO);
     }
 }

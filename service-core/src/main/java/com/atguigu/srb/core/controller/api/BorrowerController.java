@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
- * 借款人 前端控制器
+ * 申请人 前端控制器
  * </p>
  *
  * @author yupengtao

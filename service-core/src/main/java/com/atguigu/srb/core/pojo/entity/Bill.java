@@ -42,7 +42,7 @@ public class Bill implements Serializable {
     @TableField(value = "status")
     private Integer status;
     @TableField(exist = false)
-    private Long sumAll;
+    private Integer sumAll;
 
 
 

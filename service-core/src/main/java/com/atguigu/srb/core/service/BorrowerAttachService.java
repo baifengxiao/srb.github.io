@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- * 借款人上传资源表 服务类
+ * 申请人上传资源表 服务类
  * </p>
  *
  * @author yupengtao

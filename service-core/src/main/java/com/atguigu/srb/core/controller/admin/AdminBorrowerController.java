@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @author: baifengxiao
  * @date: 2022/4/17 23:58
  */
-@Api(tags = "借款人管理")
+@Api(tags = "申请人管理")
 @RestController
 @RequestMapping("/admin/core/borrower")
 @Slf4j
@@ -28,7 +28,7 @@ public class AdminBorrowerController {
     @Resource
     private BorrowerService borrowerService;
 
-    @ApiOperation("获取借款人分页列表")
+    @ApiOperation("获取申请人分页列表")
     @GetMapping("/list/{page}/{limit}")
     public R listPage(@ApiParam(value = "当前页码", required = true) @PathVariable Long page,
                       @ApiParam(value = "每页记录数", required = true) @PathVariable Long limit,
@@ -38,9 +38,9 @@ public class AdminBorrowerController {
         return R.ok().data("pageModel", pageModel);
     }
 
-    @ApiOperation("获取借款人信息")
+    @ApiOperation("获取申请人信息")
     @GetMapping("/show/{id}")
-    public R show(@ApiParam(value = "借款人id", required = true) @PathVariable Long id) {
+    public R show(@ApiParam(value = "申请人id", required = true) @PathVariable Long id) {
         BorrowerDetailVO borrowerDetailVO = borrowerService.getBorrowerDetailVoById(id);
         return R.ok().data("borrowerDetailVO", borrowerDetailVO);
 

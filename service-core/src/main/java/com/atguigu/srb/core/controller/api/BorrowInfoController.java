@@ -34,7 +34,6 @@ public class BorrowInfoController {
 
     @ApiOperation("获取开支额度")
     @GetMapping("/auth/getBorrowAmount")
-
     public R getBorrowAmount(HttpServletRequest request) {
 
         String token = request.getHeader("token");

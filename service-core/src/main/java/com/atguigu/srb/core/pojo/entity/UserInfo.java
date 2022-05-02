@@ -33,7 +33,6 @@ public class UserInfo implements Serializable {
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-//    @ApiModelProperty(value = "1：出借人 2：借款人")
 //    private Integer userType;
 
     @ApiModelProperty(value = "手机号")
@@ -63,7 +62,7 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(value = "绑定状态（0：未绑定，1：绑定成功 -1：绑定失败）")
     private Integer bindStatus;
 
-    @ApiModelProperty(value = "借款人认证状态（0：未认证 1：认证中 2：认证通过 -1：认证失败）")
+    @ApiModelProperty(value = "申请人认证状态（0：未认证 1：认证中 2：认证通过 -1：认证失败）")
     private Integer borrowAuthStatus;
 
     @ApiModelProperty(value = "绑定账户协议号")

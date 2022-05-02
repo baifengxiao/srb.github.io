@@ -9,7 +9,7 @@ import lombok.Data;
  * @date: 2022/4/18 16:44
  */
 @Data
-@ApiModel(description = "借款人审批")
+@ApiModel(description = "审批")
 public class BorrowerApprovalVO {
 
     @ApiModelProperty(value = "id")

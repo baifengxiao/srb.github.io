@@ -9,7 +9,7 @@ import lombok.Data;
  * @date: 2022/4/18 12:24
  */
 @Data
-@ApiModel(value="借款人附件资料")
+@ApiModel(value="申请人附件资料")
 public class BorrowerAttachVO {
 
     @ApiModelProperty(value = "图片类型（idCard1：身份证正面，idCard2：身份证反面，house：房产证，car：车）")

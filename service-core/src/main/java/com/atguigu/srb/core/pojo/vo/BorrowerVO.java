@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @Data
-@ApiModel(description="借款人认证信息")
+@ApiModel(description="申请人认证信息")
 public class BorrowerVO {
     @ApiModelProperty(value = "性别（1：男 0：女）")
     private Integer sex;
@@ -35,6 +35,6 @@ public class BorrowerVO {
     private String contactsMobile;
     @ApiModelProperty(value = "联系人关系")
     private Integer contactsRelation;
-    @ApiModelProperty(value = "借款人附件资料")
+    @ApiModelProperty(value = "申请人附件资料")
     private List<BorrowerAttach> borrowerAttachList;
 }
